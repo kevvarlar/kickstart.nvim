@@ -673,6 +673,11 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {},
+        jdtls = {},
+        csharp_ls = {},
+        html = {},
+        cssls = {},
+        tailwindcss = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -683,7 +688,6 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
-
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -698,8 +702,9 @@ require('lazy').setup({
             },
           },
         },
+        grammarly = {},
+        marksman = {},
       }
-
       -- Ensure the servers and tools above are installed
       --
       -- To check the current status of installed tools and/or manually install
@@ -768,12 +773,17 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        go = { 'gofmt' },
-        -- Conform can also run multiple formatters sequentially
+        go = { 'gofmt', 'goimports', 'golines' },
+        java = { 'google-java-format' },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        c_sharp = { 'csharpier' },
+        markdown = { 'markdownlint', 'prettier' },
+        html = { 'html_beautify' },
+        css = { 'css_beautify' },
+        -- Conform can also run dateMDYultiple formatters sequentially
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
     },
   },
@@ -800,12 +810,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -985,7 +995,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
